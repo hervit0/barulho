@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+#docker build -t posgresqldb .
+#docker run --rm -p 8080:8080 -d posgresqldb
+#docker stop $(docker ps -q --filter ancestor=posgresqldb) > /dev/null
+
+docker-compose down
+docker-compose up -d
+
+docker-compose logs -f database
