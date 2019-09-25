@@ -3,12 +3,11 @@ version: '3.1'
 services:
 
   database:
-    image: 'postgres'
+    image: 'postgres:11.5-alpine'
     restart: always
     environment:
       POSTGRES_USER: example
       POSTGRES_PASSWORD: example
       POSTGRES_DB: example
     ports:
-#      - 8080:8080
       - 5432:5432

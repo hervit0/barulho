@@ -8,8 +8,6 @@ import (
 )
 
 func Connect() *gorm.DB {
-	//dbDSN := "user=gorm password=gorm DB.name=gorm port=9920 sslmode=disable"
-	//dbArgs :="host=postgres user=gorm password=gorm DB.name=gorm port=5432 sslmode=disable"
 	dbConnection := "host=localhost user=example password=example DB.name=example port=5432 sslmode=disable"
 	db, err := gorm.Open("postgres", dbConnection)
 	if err != nil {
@@ -19,6 +17,6 @@ func Connect() *gorm.DB {
 	db.DB().SetConnMaxLifetime(time.Minute * 5)
 	db.DB().SetMaxIdleConns(5)
 	db.DB().SetMaxOpenConns(7)
-	//defer db.Close()
+
 	return db
 }

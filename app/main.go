@@ -23,16 +23,22 @@ func main() {
 	//		log.Printf("%+v", *v.Song)
 	//	}
 	//}
+
 	db := repository.Connect()
+	db.AutoMigrate(&models.Video{}, &models.Artist{}, &models.City{}, &models.Song{})
 
-	db.AutoMigrate(&models.Video{})
-	db.AutoMigrate(&models.Artist{})
-	db.AutoMigrate(&models.City{})
-
-	db.Create(&models.City{
-		Id:    22,
-		Title: "Wow",
-	})
+	for _, v := range videos {
+		if v.Song != nil {
+			if v.Song.Artist != nil {
+				db.FirstOrCreate(&v.Song.Artist, v.Song.Artist)
+			}
+			if v.Song.City != nil {
+				db.FirstOrCreate(&v.Song.City, v.Song.City)
+			}
+			db.FirstOrCreate(&v.Song, v.Song)
+		}
+		db.FirstOrCreate(&v, v)
+	}
 
 	var city models.City
 	db.First(&city)
