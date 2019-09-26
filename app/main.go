@@ -33,11 +33,11 @@ func main() {
 	//db.Debug().Model(&models.Song{}).AddUniqueIndex("idx_song_id", "song_id")
 	//db.Debug().Model(&models.Video{}).AddForeignKey("song_id", "songs (video_uid)", "CASCADE", "CASCADE")
 	//db.Debug().Model(&models.Song{}).AddForeignKey("video_uid", "videos(song_id)", "CASCADE", "CASCADE")
-	db.Debug().Model(&models.Video{}).AddForeignKey("video_uid", "videos(song_id_int)", "CASCADE", "CASCADE")
+	db.Debug().Model(&models.Video{}).AddForeignKey("song_id_int", "songs (song_id)", "CASCADE", "CASCADE")
 	//db.Debug().Model(&models.Video{}).Related(&models.Song{})
 
 	for _, v := range videos {
-		db.Debug().Create(&v)
+		db.Debug().Save(&v)
 	}
 	//for _, v := range videos {
 	//	if v.Song != nil {
