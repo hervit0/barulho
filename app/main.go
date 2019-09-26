@@ -26,28 +26,33 @@ func main() {
 	//}
 
 	db := repository.Connect()
-	db.Debug().DropTableIfExists(&models.Video{}, &models.Artist{}, &models.City{}, &models.Song{})
+	db.DropTableIfExists(&models.Video{}, &models.Artist{}, &models.City{}, &models.Song{})
 	//db.Debug().Model(&models.Song{})
 	//db.Debug().Model(&models.Video{}).Related(&models.Song{}, "Song")
 	db.Debug().AutoMigrate(&models.Video{}, &models.Artist{}, &models.City{}, &models.Song{})
 	//db.Debug().Model(&models.Song{}).AddUniqueIndex("idx_song_id", "song_id")
-	db.Debug().Model(&models.Video{}).AddForeignKey("song_id", "songs(video_uid)", "CASCADE", "CASCADE")
+	//db.Debug().Model(&models.Video{}).AddForeignKey("song_id", "songs (video_uid)", "CASCADE", "CASCADE")
 	//db.Debug().Model(&models.Song{}).AddForeignKey("video_uid", "videos(song_id)", "CASCADE", "CASCADE")
+	db.Debug().Model(&models.Video{}).AddForeignKey("video_uid", "videos(song_id_int)", "CASCADE", "CASCADE")
+	//db.Debug().Model(&models.Video{}).Related(&models.Song{})
 
 	for _, v := range videos {
-		if v.Song != nil {
-			if v.Song.Artist != nil {
-				db.FirstOrCreate(&v.Song.Artist, v.Song.Artist)
-			}
-			if v.Song.City != nil {
-				db.FirstOrCreate(&v.Song.City, v.Song.City)
-			}
-			v.Song.VideoUid = &v.VideoUid
-			v.SongId = &v.Song.SongId
-			db.Debug().Create(&v.Song)
-		}
 		db.Debug().Create(&v)
 	}
+	//for _, v := range videos {
+	//	if v.Song != nil {
+	//		if v.Song.Artist != nil {
+	//			db.FirstOrCreate(&v.Song.Artist, v.Song.Artist)
+	//		}
+	//		if v.Song.City != nil {
+	//			db.FirstOrCreate(&v.Song.City, v.Song.City)
+	//		}
+	//		//v.Song.VideoUid = &v.VideoUid
+	//		v.SongIdInt = &v.Song.SongId
+	//		db.Debug().Create(&v.Song)
+	//	}
+	//	db.Debug().Create(&v)
+	//}
 
 	var video models.Video
 	var song models.Song
@@ -59,6 +64,7 @@ func main() {
 	db.First(&city)
 
 	log.Printf("%+v", video)
+	log.Printf("%+v", video.Song)
 	log.Printf("%+v", song)
 	log.Printf("%+v", artist)
 	log.Printf("%+v", city)
