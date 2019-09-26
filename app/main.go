@@ -26,19 +26,22 @@ func main() {
 
 	db := repository.Connect()
 	db.Debug().DropTableIfExists(&models.Video{}, &models.Artist{}, &models.City{}, &models.Song{})
+	//db.Debug().Model(&models.Song{})
+	//db.Debug().Model(&models.Video{}).Related(&models.Song{}, "Song")
 	db.Debug().AutoMigrate(&models.Video{}, &models.Artist{}, &models.City{}, &models.Song{})
 
 	for _, v := range videos {
 		if v.Song != nil {
 			if v.Song.Artist != nil {
-				db.Debug().FirstOrCreate(&v.Song.Artist, v.Song.Artist)
+				db.FirstOrCreate(&v.Song.Artist, v.Song.Artist)
 			}
 			if v.Song.City != nil {
-				db.Debug().FirstOrCreate(&v.Song.City, v.Song.City)
+				db.FirstOrCreate(&v.Song.City, v.Song.City)
 			}
-			db.Debug().FirstOrCreate(&v.Song, v.Song)
+			v.Song.VideoUid = &v.VideoUid
+			db.Debug().Create(v.Song)
 		}
-		db.Debug().FirstOrCreate(&v, v)
+		db.Debug().Create(v)
 	}
 
 	var video models.Video
