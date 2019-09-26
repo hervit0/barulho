@@ -2,7 +2,7 @@ package models
 
 type Song struct {
 	//gorm.Model
-	SongId   int64  `json:"id",gorm:"primary_key"`
+	SongId   int64  `json:"id" gorm:"unique;primary_key"`
 	Title    string `json:"title"`
 	VideoUid *string
 	ArtistId *int64  `json:"artist_id"`

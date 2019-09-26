@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/hervit0/barulho/models"
 	"github.com/hervit0/barulho/repository"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"io/ioutil"
 	"log"
 	"os"
@@ -29,6 +30,9 @@ func main() {
 	//db.Debug().Model(&models.Song{})
 	//db.Debug().Model(&models.Video{}).Related(&models.Song{}, "Song")
 	db.Debug().AutoMigrate(&models.Video{}, &models.Artist{}, &models.City{}, &models.Song{})
+	//db.Debug().Model(&models.Song{}).AddUniqueIndex("idx_song_id", "song_id")
+	db.Debug().Model(&models.Video{}).AddForeignKey("song_id", "songs(video_uid)", "CASCADE", "CASCADE")
+	//db.Debug().Model(&models.Song{}).AddForeignKey("video_uid", "videos(song_id)", "CASCADE", "CASCADE")
 
 	for _, v := range videos {
 		if v.Song != nil {
@@ -39,9 +43,10 @@ func main() {
 				db.FirstOrCreate(&v.Song.City, v.Song.City)
 			}
 			v.Song.VideoUid = &v.VideoUid
-			db.Debug().Create(v.Song)
+			v.SongId = &v.Song.SongId
+			db.Debug().Create(&v.Song)
 		}
-		db.Debug().Create(v)
+		db.Debug().Create(&v)
 	}
 
 	var video models.Video
