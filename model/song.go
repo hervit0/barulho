@@ -1,4 +1,4 @@
-package models
+package model
 
 type Song struct {
 	//gorm.Model

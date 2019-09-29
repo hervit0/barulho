@@ -1,12 +1,15 @@
 package repository
 
 import (
-	"github.com/hervit0/barulho/models"
+	"github.com/hervit0/barulho/model"
 	"github.com/jinzhu/gorm"
-	"log"
 )
 
-type Video struct {
+type Video interface {
+	FindBySongName(songName string) []VideoResult
+}
+
+type VideoImpl struct {
 	Db *gorm.DB
 }
 
@@ -19,10 +22,9 @@ type VideoResult struct {
 }
 
 //http://gorm.io/docs/query.html
-func (video *Video) FindBySongName(songName string) []VideoResult {
-	var songs []models.Song
+func (video *VideoImpl) FindBySongName(songName string) []VideoResult {
+	var songs []model.Song
 	video.Db.Where("Title LIKE ?", songName).Find(&songs)
-	log.Print(songs)
 
 	results := make([]VideoResult, len(songs))
 	for i, song := range songs {
@@ -36,23 +38,23 @@ func (video *Video) FindBySongName(songName string) []VideoResult {
 	return results
 }
 
-func (video *Video) getCityName(cityId *int64) (cityName string) {
+func (video *VideoImpl) getCityName(cityId *int64) (cityName string) {
 	if cityId == nil {
 		return cityName
 	}
 
-	var city models.City
+	var city model.City
 	video.Db.First(&city, *cityId)
 
 	return city.Title
 }
 
-func (video *Video) getArtistName(artistId *int64) (artistName string) {
+func (video *VideoImpl) getArtistName(artistId *int64) (artistName string) {
 	if artistId == nil {
 		return artistName
 	}
 
-	var artist models.Artist
+	var artist model.Artist
 	video.Db.First(&artist, *artistId)
 
 	return artist.Title

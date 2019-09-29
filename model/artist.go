@@ -1,4 +1,4 @@
-package models
+package model
 
 type Artist struct {
 	Id    int64  `json:"id" gorm:"unique;primary_key"`

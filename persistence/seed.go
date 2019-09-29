@@ -2,7 +2,7 @@ package persistence
 
 import (
 	"encoding/json"
-	"github.com/hervit0/barulho/models"
+	"github.com/hervit0/barulho/model"
 	"github.com/jinzhu/gorm"
 	"io/ioutil"
 	"os"
@@ -13,7 +13,7 @@ func Seed(db *gorm.DB) {
 	defer jsonFile.Close()
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
-	var videos []models.Video
+	var videos []model.Video
 	_ = json.Unmarshal(byteValue, &videos)
 
 	for _, v := range videos {
