@@ -5,6 +5,8 @@ schema {
 type Query {
   hello: String!
   getVideosBySongName(name: String!): [Song]
+  getVideosByCityName(name: String!): [Song]
+  getVideosByArtistName(name: String!): [Song]
 }
 
 type Song {

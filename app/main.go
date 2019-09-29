@@ -18,7 +18,7 @@ func main() {
 	videosResult := videosRepo.FindBySongName("Ranchera")
 	log.Printf("%+v", videosResult)
 
-	r := resolver.MainImpl{VideosRepo: &videosRepo}
+	r := resolver.ResolverImpl{VideosRepo: &videosRepo}
 	s := server.Server{Resolver: &r}
 	s.Do()
 }

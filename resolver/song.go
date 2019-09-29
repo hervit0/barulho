@@ -10,7 +10,7 @@ type SongResolver struct {
 }
 
 func (t *SongResolver) Id(ctx context.Context) *int64 {
-	return &t.Song.Id
+	return &t.Song.SongId
 }
 
 func (t *SongResolver) Name(ctx context.Context) *string {

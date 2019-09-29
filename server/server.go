@@ -12,7 +12,7 @@ import (
 )
 
 type Server struct {
-	Resolver resolver.Main
+	Resolver resolver.Resolver
 }
 
 func (server *Server) Do() {
