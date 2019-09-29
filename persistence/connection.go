@@ -1,4 +1,4 @@
-package repository
+package persistence
 
 import (
 	"github.com/jinzhu/gorm"
@@ -17,6 +17,7 @@ func Connect() *gorm.DB {
 	db.DB().SetConnMaxLifetime(time.Minute * 5)
 	db.DB().SetMaxIdleConns(5)
 	db.DB().SetMaxOpenConns(7)
+	//db.Set("gorm:auto_preload", true)
 
 	return db
 }

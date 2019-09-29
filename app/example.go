@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/hervit0/barulho/repository"
+	"github.com/hervit0/barulho/persistence"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"log"
 )
@@ -21,7 +21,7 @@ type Place struct {
 }
 
 func main() {
-	db := repository.Connect()
+	db := persistence.Connect()
 	db.DropTableIfExists(&Place{}, &Town{})
 
 	db.AutoMigrate(&Place{}, &Town{})
