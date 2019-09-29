@@ -15,7 +15,7 @@ type VideoResult struct {
 	CityName   string
 	ArtistName string
 	SongName   string
-	SongId     int64
+	Id         int64
 }
 
 //http://gorm.io/docs/query.html
@@ -30,7 +30,7 @@ func (video *Video) FindBySongName(songName string) []VideoResult {
 			CityName:   video.getCityName(song.CityId),
 			ArtistName: video.getArtistName(song.ArtistId),
 			SongName:   song.Title,
-			SongId:     song.SongId,
+			Id:         song.SongId,
 		}
 	}
 	return results

@@ -4,4 +4,22 @@ schema {
 
 type Query {
   hello: String!
+  getSongByName(name: String!): Song
+}
+
+type Song {
+#   id: Int
+  name: String
+  cityName: String
+  artistName: String
+}
+
+type City {
+  id: Int!
+  Title: String!
+}
+
+type Artist {
+  id: Int!
+  Title: String!
 }

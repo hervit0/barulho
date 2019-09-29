@@ -11,7 +11,11 @@ API to query by video by song name, artist or the city.
 go run app/main.go
 ```
 
-Run: `curl -XPOST -d '{"query": "{ hello }"}' localhost:8080/query`
+Query the API:
+```bash
+curl -XPOST -d '{"query": "{ hello }"}' localhost:8080/query`
+curl -XPOST -d '{"query": "{ getSongByName(name: \"lol\") { name cityName artistName } }"}' localhost:8080/query
+```
 
 ## Notes
 
