@@ -10,7 +10,7 @@ type Video struct {
 	Db *gorm.DB
 }
 
-type VideoResponse struct {
+type VideoResult struct {
 	VideoUid   string
 	CityName   string
 	ArtistName string
@@ -19,21 +19,21 @@ type VideoResponse struct {
 }
 
 //http://gorm.io/docs/query.html
-func (video *Video) FindBySongName(songName string) []VideoResponse {
+func (video *Video) FindBySongName(songName string) []VideoResult {
 	var songs []models.Song
 	video.Db.Where("Title LIKE ?", songName).Find(&songs)
 	log.Print(songs)
 
-	videoResponses := make([]VideoResponse, len(songs))
+	results := make([]VideoResult, len(songs))
 	for i, song := range songs {
-		videoResponses[i] = VideoResponse{
+		results[i] = VideoResult{
 			CityName:   video.getCityName(song.CityId),
 			ArtistName: video.getArtistName(song.ArtistId),
 			SongName:   song.Title,
 			SongId:     song.SongId,
 		}
 	}
-	return videoResponses
+	return results
 }
 
 func (video *Video) getCityName(cityId *int64) (cityName string) {
