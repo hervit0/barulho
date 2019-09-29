@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"fmt"
 	"github.com/hervit0/barulho/model"
 	"github.com/jinzhu/gorm"
 )
@@ -24,7 +25,8 @@ type VideoResult struct {
 //http://gorm.io/docs/query.html
 func (video *VideoImpl) FindBySongName(songName string) []VideoResult {
 	var songs []model.Song
-	video.Db.Where("Title LIKE ?", songName).Find(&songs)
+	request := fmt.Sprintf("%%%v%%", songName)
+	video.Db.Where("Title LIKE ?", request).Find(&songs)
 
 	results := make([]VideoResult, len(songs))
 	for i, song := range songs {

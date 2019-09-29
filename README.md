@@ -14,7 +14,7 @@ go run app/main.go
 Query the API:
 ```bash
 curl -XPOST -d '{"query": "{ hello }"}' localhost:8080/query`
-curl -XPOST -d '{"query": "{ getSongByName(name: \"lol\") { name cityName artistName } }"}' localhost:8080/query
+curl -XPOST -d '{"query": "{ getVideosBySongName(name: \"Dance\") { name cityName artistName } }"}' localhost:8080/query
 ```
 
 ## Notes

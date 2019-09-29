@@ -22,7 +22,10 @@ func (server *Server) Do() {
 }
 
 func (server *Server) parseSchema() *graphql.Schema {
-	schemaFile, _ := os.Open("./schema.graphql")
+	schemaFile, err := os.Open("./schema.graphql")
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer schemaFile.Close()
 
 	byteSchema, err := ioutil.ReadAll(schemaFile)
