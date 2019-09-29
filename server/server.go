@@ -12,7 +12,7 @@ import (
 
 type query struct{}
 
-func (_ *query) Hello() string { return "Hello, world!" }
+func (_ *query) Hello() string { return "Hello from resolver" }
 
 func Do() {
 	schema := parseSchema()

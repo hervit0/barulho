@@ -1,6 +1,7 @@
-      schema {
-                        query: Query
-                }
-                type Query {
-                        hello: String!
-                }
+schema {
+  query: Query
+}
+
+type Query {
+  hello: String!
+}
