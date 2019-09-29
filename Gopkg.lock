@@ -2,6 +2,29 @@
 
 
 [[projects]]
+  branch = "master"
+  digest = "1:6cacca7532dcd13c0b5ffc98ed757f43cbe26e40256b1c9e3533c7c219ac46bd"
+  name = "github.com/graph-gophers/graphql-go"
+  packages = [
+    ".",
+    "errors",
+    "internal/common",
+    "internal/exec",
+    "internal/exec/packer",
+    "internal/exec/resolvable",
+    "internal/exec/selected",
+    "internal/query",
+    "internal/schema",
+    "internal/validation",
+    "introspection",
+    "log",
+    "relay",
+    "trace",
+  ]
+  pruneopts = "UT"
+  revision = "38a077bc812da9a60fd1885e68206c59b24c858e"
+
+[[projects]]
   digest = "1:da6718abe4d47b1132d98bf3f9b18e302d537bf6daf02bd40804d9295a3f32bd"
   name = "github.com/jinzhu/gorm"
   packages = [
@@ -33,10 +56,24 @@
   revision = "3427c32cb71afc948325f299f040e53c1dd78979"
   version = "v1.2.0"
 
+[[projects]]
+  digest = "1:11e62d6050198055e6cd87ed57e5d8c669e84f839c16e16f192374d913d1a70d"
+  name = "github.com/opentracing/opentracing-go"
+  packages = [
+    ".",
+    "ext",
+    "log",
+  ]
+  pruneopts = "UT"
+  revision = "659c90643e714681897ec2521c60567dd21da733"
+  version = "v1.1.0"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/graph-gophers/graphql-go",
+    "github.com/graph-gophers/graphql-go/relay",
     "github.com/jinzhu/gorm",
     "github.com/jinzhu/gorm/dialects/postgres",
   ]
