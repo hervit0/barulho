@@ -12,7 +12,7 @@ import (
 func main() {
 	db := persistence.Connect()
 	persistence.Migrate(db)
-	//persistence.Seed(db)
+	persistence.Seed(db)
 
 	videosRepo := repository.VideoImpl{Db: db}
 	videosResult := videosRepo.FindBySongName("Ranchera")

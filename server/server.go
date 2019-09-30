@@ -18,7 +18,7 @@ type Server struct {
 func (server *Server) Do() {
 	schema := server.parseSchema()
 	http.Handle("/query", &relay.Handler{Schema: schema})
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":5050", nil))
 }
 
 func (server *Server) parseSchema() *graphql.Schema {

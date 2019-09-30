@@ -2,6 +2,18 @@ version: '3.1'
 
 services:
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5050:5050"
+    restart: unless-stopped
+    environment:
+      DATABASE_HOST: database
+    depends_on:
+      - database
+
   database:
     image: 'postgres:11.5-alpine'
     restart: always
@@ -11,3 +23,8 @@ services:
       POSTGRES_DB: example
     ports:
       - 5432:5432
+    volumes:
+      - my_volume:/var/lib/postgresql/data
+
+volumes:
+  my_volume:

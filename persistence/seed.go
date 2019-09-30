@@ -17,14 +17,14 @@ func Seed(db *gorm.DB) {
 	_ = json.Unmarshal(byteValue, &videos)
 
 	for _, v := range videos {
-		db.Save(&v)
+		db.Debug().Save(&v)
 		if v.Song != nil {
-			db.Save(v.Song)
+			db.Debug().Save(v.Song)
 			if v.Song.Artist != nil {
-				db.Save(v.Song.Artist)
+				db.Debug().Save(v.Song.Artist)
 			}
 			if v.Song.City != nil {
-				db.Save(v.Song.City)
+				db.Debug().Save(v.Song.City)
 			}
 		}
 	}
